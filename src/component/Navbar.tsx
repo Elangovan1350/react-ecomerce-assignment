@@ -24,6 +24,9 @@ const Navbar = () => {
           <ul className="flex flex-col md:flex-row gap-3">
             <NavLink
               to={"/"}
+              onClick={() => {
+                setNavbarActive((pre) => !pre);
+              }}
               className={({ isActive }) =>
                 isActive ? "font-bold" : "font-normal"
               }
@@ -31,6 +34,9 @@ const Navbar = () => {
               Home
             </NavLink>
             <NavLink
+              onClick={() => {
+                setNavbarActive((pre) => !pre);
+              }}
               to={"/product"}
               className={({ isActive }) =>
                 isActive ? "font-bold" : "font-normal"
@@ -40,6 +46,9 @@ const Navbar = () => {
             </NavLink>
             <NavLink
               to={"/about"}
+              onClick={() => {
+                setNavbarActive((pre) => !pre);
+              }}
               className={({ isActive }) =>
                 isActive ? "font-bold" : "font-normal"
               }
@@ -47,6 +56,9 @@ const Navbar = () => {
               About
             </NavLink>
             <NavLink
+              onClick={() => {
+                setNavbarActive((pre) => !pre);
+              }}
               to={"contact"}
               className={({ isActive }) =>
                 isActive ? "font-bold" : "font-normal"
