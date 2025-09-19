@@ -1,7 +1,7 @@
 const HeroSection = () => {
   return (
     <div className="w-[90%] mx-auto flex h-[90dvh] justify-center items-center">
-      <div className="w-[60%] text-center">
+      <div className="w-[90%] md:w-[60%] text-center">
         <h1 className="text-3xl font-bold  text-shadow-sm/50  text-shadow-gray-600 te">
           <span className="text-orange-500 ">Super Comerce</span> The Best Place
           You Can Buy The Product
