@@ -1,22 +1,8 @@
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useSWR from "swr";
 import { Star } from "lucide-react";
-
-export interface Iproduct {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: Irating;
-}
-
-export interface Irating {
-  rate: number;
-  count: number;
-}
+import type { Iproduct } from "./ProductItems";
 
 const url: string = "https://fakestoreapi.com";
 const fetcher = (url1: string) => axios.get(url + url1).then((e) => e.data);
@@ -53,7 +39,7 @@ const ProductHomeSection = () => {
           return (
             <div
               key={product.id}
-              className="w-[300px] flex flex-col gap-3 items-center text-center  justify-center px-2.5 py-5  shadow-[5px_5px_10px_0px_rgba(0,_0,_0,_0.5)]"
+              className="w-[300px] flex flex-col gap-3 items-center text-center  justify-center px-2.5 py-5  shadow-[5px_5px_10px_0px_rgba(0,_0,_0,_0.5)] hover:shadow-[5px_5px_10px_3px_rgba(0,_0,_0,_0.5)]"
             >
               <img
                 className="h-[100px] w-[100px]"
@@ -74,9 +60,12 @@ const ProductHomeSection = () => {
                   <Star size={16} />
                 </p>
               </div>
-              <button className="bg-red-600 font-semibold text-xl w-[80%] py-2 rounded-2xl text-white">
-                Add To Card
-              </button>
+              <Link
+                to={"/product/" + product.id}
+                className="bg-red-600 font-semibold text-xl w-[80%] py-2 rounded-2xl text-white"
+              >
+                More Details
+              </Link>
             </div>
           );
         })}
