@@ -1,47 +1,23 @@
-import axios from "axios";
-// import { useEffect, useState } from "react";
-import useSWR from "swr";
 import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
-
-export interface Iproduct {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: Irating;
-}
-
-export interface Irating {
-  rate: number;
-  count: number;
-}
-const url: string = "https://fakestoreapi.com";
-const fetcher = (url1: string) => axios.get(url + url1).then((e) => e.data);
+import { useStoreProducts } from "../store/ProductStore";
 
 const ProductItems = () => {
-  //   const [products, setProducts] = useState<Iproduct[]>([]);
-  const { data, isLoading, error } = useSWR("/products", fetcher);
-  if (error) return <div>Failed to load</div>;
-  if (isLoading) return <div>Loading...</div>;
-  console.log(data, "ello");
-
-  //   const getProducts = async () => {
-  //     const res: Iproduct[] = (await axios.get(url)).data;
-  //     setProducts(res);
-  //   };
-  //   useEffect(() => {
-  //     getProducts();
-  //   }, []);
+  const { products } = useStoreProducts();
+  if (products.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-[50vh]">
+        <p className="text-gray-600 text-lg">Loading products details...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-[90%] mx-auto py-5">
       <h1 className="text-3xl font-bold mb-5">Products:</h1>
 
       <div className="flex flex-wrap gap-10   justify-center">
-        {data.map((product: Iproduct) => {
+        {products.map((product) => {
           return (
             <div
               key={product.id}

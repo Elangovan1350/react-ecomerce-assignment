@@ -1,36 +1,18 @@
-import axios from "axios";
 import { Link, NavLink } from "react-router-dom";
-import useSWR from "swr";
 import { Star } from "lucide-react";
-import type { Iproduct } from "./ProductItems";
-
-const url: string = "https://fakestoreapi.com";
-const fetcher = (url1: string) => axios.get(url + url1).then((e) => e.data);
+import { useStoreProducts, type Iproduct } from "../store/ProductStore";
 
 const ProductHomeSection = () => {
-  //   const [products, setProducts] = useState<Iproduct[]>([]);
-  //   const url: string = "https://fakestoreapi.com/products";
-  const {
-    data,
-    isLoading,
-    error,
-  }: { data: Iproduct[]; isLoading: boolean; error: undefined } = useSWR(
-    "/products",
-    fetcher
-  );
-  if (error) return <div>Failed to load</div>;
-  if (isLoading) return <div>Loading...</div>;
-  console.log(error, "ello");
-  const fillterd = data.filter((e) => e.id <= 6);
+  const { products } = useStoreProducts();
 
-  //   const getProducts = async () => {
-  //     const res: Iproduct[] = (await axios.get(url)).data;
-  //     const fillterd = res.filter((e) => e.id <= 6);
-  //     setProducts(fillterd);
-  //   };
-  //   useEffect(() => {
-  //     getProducts();
-  //   }, []);
+  const fillterd = products.filter((e) => e.id <= 6);
+  if (fillterd.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-[50vh]">
+        <p className="text-gray-600 text-lg">Loading products details...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-[90%] mx-auto">

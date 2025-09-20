@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import HomePage from "./HomePage";
 import Navbar from "./component/Navbar";
 import ProductPage from "./ProductPage";
@@ -7,23 +7,70 @@ import AboutPage from "./AboutPage";
 import ScrollToTop from "./component/ScroolToTop";
 import SingalCard from "./SingalCard";
 import Footer from "./component/Footer";
+import PageTransition from "./component/PageTransition";
+import axios from "axios";
+import useSWR from "swr";
+import { useStoreProducts, type Iproduct } from "./store/ProductStore";
+import { useEffect } from "react";
 
+const url: string = "https://fakestoreapi.com";
+const fetcher = (url1: string) => axios.get(url + url1).then((e) => e.data);
 const App = () => {
+  const location = useLocation();
+
+  const { data } = useSWR<Iproduct[]>("/products", fetcher);
+  const { getProducts } = useStoreProducts();
+  useEffect(() => {
+    if (data) getProducts(data);
+  }, [data, getProducts]);
+  console.log(data);
   return (
     <div className="bg-gray-200 overflow-hidden">
-      <BrowserRouter>
-        <ScrollToTop />
-        <Navbar />
-        <Routes>
-          <Route element={<HomePage />} path="/"></Route>
-          <Route element={<ProductPage />} path="/product"></Route>
-          <Route element={<SingalCard />} path="/product/:id"></Route>
-
-          <Route element={<ContactPage />} path="/contact"></Route>
-          <Route element={<AboutPage />} path="/about"></Route>
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+      <ScrollToTop />
+      <Navbar />
+      <Routes key={location.pathname} location={location}>
+        <Route
+          path="/"
+          element={
+            <PageTransition>
+              <HomePage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/product"
+          element={
+            <PageTransition>
+              <ProductPage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/product/:id"
+          element={
+            <PageTransition>
+              <SingalCard />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <PageTransition>
+              <ContactPage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <PageTransition>
+              <AboutPage />
+            </PageTransition>
+          }
+        />
+      </Routes>
+      <Footer />
     </div>
   );
 };

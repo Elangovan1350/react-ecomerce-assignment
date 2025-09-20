@@ -1,25 +1,18 @@
-import axios from "axios";
 import { useParams } from "react-router-dom";
-import type { Iproduct } from "./component/ProductItems";
-import useSWR from "swr";
-
-const url: string = "https://fakestoreapi.com";
-const fetcher = (url1: string) => axios.get(url + url1).then((e) => e.data);
+import { useStoreProducts } from "./store/ProductStore";
 
 const SingalCard = () => {
   const { id } = useParams();
-  const {
-    data,
-    isLoading,
-    error,
-  }: { data: Iproduct; isLoading: boolean; error: undefined } = useSWR(
-    "/products/" + id,
-    fetcher
-  );
-  if (error) return <div>Failed to load</div>;
-  if (isLoading) return <div>Loading...</div>;
-  console.log(data);
+  const { products } = useStoreProducts();
+  const data = products.find((e) => e.id == Number(id));
 
+  if (!data) {
+    return (
+      <div className="flex justify-center items-center h-[50vh]">
+        <p className="text-gray-600 text-lg">Loading product details...</p>
+      </div>
+    );
+  }
   return (
     <div className="max-w-md mx-auto rounded-md overflow-hidden shadow-md hover:shadow-lg py-5 my-5">
       <div className="relative">
