@@ -23,7 +23,6 @@ const App = () => {
   useEffect(() => {
     if (data) getProducts(data);
   }, [data, getProducts]);
-  console.log(data);
   return (
     <div className="bg-gray-200 overflow-hidden">
       <ScrollToTop />
