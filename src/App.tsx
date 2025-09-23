@@ -12,6 +12,8 @@ import axios from "axios";
 import useSWR from "swr";
 import { useStoreProducts, type Iproduct } from "./store/ProductStore";
 import { useEffect } from "react";
+import ErrorPage from "./ErrorPage";
+import AddProduct from "./AddProduct";
 
 const url: string = "https://fakestoreapi.com";
 const fetcher = (url1: string) => axios.get(url + url1).then((e) => e.data);
@@ -65,6 +67,22 @@ const App = () => {
           element={
             <PageTransition>
               <AboutPage />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/addProduct"
+          element={
+            <PageTransition>
+              <AddProduct />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <PageTransition>
+              <ErrorPage />
             </PageTransition>
           }
         />

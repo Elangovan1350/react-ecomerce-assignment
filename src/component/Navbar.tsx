@@ -59,12 +59,23 @@ const Navbar = () => {
               onClick={() => {
                 setNavbarActive((pre) => !pre);
               }}
-              to={"contact"}
+              to={"/contact"}
               className={({ isActive }) =>
                 isActive ? "font-bold" : "font-normal"
               }
             >
               Contact
+            </NavLink>
+            <NavLink
+              onClick={() => {
+                setNavbarActive((pre) => !pre);
+              }}
+              to={"/addProduct"}
+              className={({ isActive }) =>
+                isActive ? "font-bold" : "font-normal"
+              }
+            >
+              Add Product
             </NavLink>
           </ul>
         </div>

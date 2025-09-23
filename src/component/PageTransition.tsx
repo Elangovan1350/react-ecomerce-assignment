@@ -7,14 +7,6 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AnimatePresence mode="wait">
-      {/* <motion.div
-        key={urlLocation.pathname}
-        className="absolute top-0 w-full  bg-orange-400"
-        initial={{ height: "100%" }}
-        animate={{ height: "0%" }}
-        exit={{ height: "100%" }}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
-      ></motion.div> */}
       <motion.div
         key={urlLocation.pathname}
         initial={{ y: 20, opacity: 0 }}
