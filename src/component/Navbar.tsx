@@ -7,7 +7,7 @@ const Navbar = () => {
   return (
     <div className="2xl:container mx-auto">
       <section className="w-[90%] mx-auto flex flex-col md:flex-row justify-between items-center min-h-[10dvh] ">
-        <div className="flex justify-between items-center w-full min-h-[10dvh]">
+        <div className="flex justify-between items-center w-full md:w-fit min-h-[10dvh]">
           <NavLink to={"/"} className={"text-orange-500 font-bold text-2xl"}>
             Super Comerce
           </NavLink>
@@ -20,8 +20,10 @@ const Navbar = () => {
             <Menu />
           </div>
         </div>
-        <div className={navbarActive ? "block md:block" : "hidden md:block"}>
-          <ul className="flex flex-col md:flex-row gap-3">
+        <div
+          className={navbarActive ? "block " : "hidden  " + "md:block grow "}
+        >
+          <ul className="flex flex-col md:flex-row md:justify-end gap-3">
             <NavLink
               to={"/"}
               onClick={() => {

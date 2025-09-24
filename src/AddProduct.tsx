@@ -23,7 +23,9 @@ const AddProduct = () => {
       return;
     }
     console.log("Valid product:", out);
-    toast.success("Product valided successfully!");
+    toast.success(
+      "Product valided successfully!" + "  " + data.title + "  " + data.price
+    );
   };
 
   return (
